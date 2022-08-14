@@ -1,9 +1,18 @@
 from bs4 import BeautifulSoup
 from string import punctuation
+
+import re
 import requests
 import unicodedata
 
 class Scraper:
+
+    @staticmethod
+    def text_string_to_list(text_string)->list:
+        cleaned_word = [word.lower() for line in text_string.splitlines() for word in unicodedata.normalize("NFKD", line).split(' ') if (word and word not in punctuation)]
+        cleaned_word = [re.sub(r'[^\w\s]', '', word) for word in cleaned_word if re.sub(r'[^\w\s]', '', word)]
+
+        return cleaned_word
 
     @classmethod    
     def get_text(cls, url)->list:
@@ -11,14 +20,8 @@ class Scraper:
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html.parser')
         text = soup.get_text()
-        # cleaned_word = [word.lower() for line in text.splitlines() for word in line.split(' ') if (word and word not in punctuation)]
-        cleaned_word = [word.lower() for line in text.splitlines() for word in unicodedata.normalize("NFKD", line).split(' ') if (word and word not in punctuation)]
-        for idx, word in enumerate(cleaned_word):
-            cleaned_word[idx] = word.replace(word[0],'') if word[0] in punctuation else word
-            cleaned_word[idx] = word.replace(word[-1],'') if word[-1] in punctuation else word
 
-        return cleaned_word
-        # return [t for t in text.splitlines() if t]
+        return cls.text_string_to_list(text)
 
 
 if __name__ == '__main__':

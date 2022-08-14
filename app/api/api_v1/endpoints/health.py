@@ -7,4 +7,8 @@ router = APIRouter()
 
 @router.get("/")
 def GetModel():
-    return 'Server is running'
+    return {
+        "name": "wordcountingservice",
+        "status": "ok",
+        "version": "1.0.0"
+    }

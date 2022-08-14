@@ -1,6 +1,7 @@
 import logging
 from fastapi import APIRouter
 from app.services.scraper import Scraper
+from app.services.counter import Wordcounter
 from app.schemas import Count
 
 logger = logging.getLogger('wordcount')
@@ -9,13 +10,11 @@ logger = logging.getLogger('wordcount')
 router = APIRouter()
 
 @router.get("/")
-def GetModel(url:Count):
-    logging.info(f"url:{url}")
-    print(f"url:{url}")
+def GetModel(Website:Count):
+    logging.info(f"url:{Website.url}")
+    print(f"url:{Website.url}")
 
-    scraper = Scraper.get_text(url)
-    print(f"{scraper}")
+    scraper:list = Scraper.get_text(Website.url)
+    word_count = Wordcounter.count_words(scraper)
 
-
-
-    return 'Counting'
+    return word_count

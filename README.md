@@ -8,7 +8,7 @@
     python setup.py install
    
 ### Start API server
-    uvicorn app.main:app --reload
+    ./build_scripts/build_local.sh 
 
 ### Request
     curl -X 'GET' 'http://localhost:8000/count/' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"url":"https://www.bbc.co.uk/"}'
@@ -20,6 +20,5 @@
     ./build_scripts/build_docker.sh
 
 ### Run Docker
-    docker run --env-file .env -p 8000:8000 contilio/modelapi
     docker run -p 8000:8000 wordcount
 

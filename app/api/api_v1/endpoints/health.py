@@ -6,7 +6,7 @@ logger = logging.getLogger('wordcount')
 router = APIRouter()
 
 @router.get("/")
-def GetModel():
+def get_Health():
     return {
         "name": "wordcountingservice",
         "status": "ok",

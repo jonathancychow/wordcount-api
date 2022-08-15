@@ -10,7 +10,7 @@ logger = logging.getLogger('wordcount')
 router = APIRouter()
 
 @router.get("/")
-def GetModel(Website:Count):
+def get_website(Website:Count):
     logging.info(f"url:{Website.url}")
     print(f"url:{Website.url}")
 

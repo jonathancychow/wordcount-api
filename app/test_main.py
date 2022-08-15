@@ -12,7 +12,6 @@ from string import punctuation
 client = TestClient(app)
 
 def test_counter():
-
     number_of_repeat = 3 
     letters = string.ascii_letters    
     random_words = ["".join(random.sample(letters,random.randint(1,10))) for _ in range(100)]
@@ -40,7 +39,7 @@ def test_scraper_get_text():
         assert len(text.splitlines()) == 1
         assert punctuation not in text
 
-def test_health_endpoint():
+def test_health():
     # response = client.get("/health", headers={"X-Token": "coneofsilence"})
     response = client.get("/health")
 
@@ -51,13 +50,9 @@ def test_health_endpoint():
         "version": "1.0.0"
     }
 
-def test_count_endpoint():
-    # response = client.get("/health", headers={"X-Token": "coneofsilence"})
-    # response = client.get("/count")
+def test_count_one_word():
     response = client.get(
         "/count",
-        # headers={"X-Token": "coneofsilence"},
-        # body
         json={"url":"https://www.oneword.com/home/"},
     )
 
@@ -66,3 +61,9 @@ def test_count_endpoint():
     assert response.json()['write'] == 3 
     assert response.json()['of'] == 2 
     assert response.json()['facebook'] == 1 
+
+def test_count_missing_body():
+    response = client.get(
+        "/count",
+    )
+    assert response.status_code == 422

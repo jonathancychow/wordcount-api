@@ -9,8 +9,5 @@ logger = logging.getLogger('wordcount')
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return 'Server is running'
 
 app.include_router(api_router)

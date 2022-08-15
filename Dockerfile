@@ -10,16 +10,10 @@ WORKDIR $HOME
 RUN apt-get update && apt-get install -y software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get --allow-releaseinfo-change update && \ 
-# need to remove the line about in the future, added to get around a bug from apt-get update
-# https://stackoverflow.com/questions/68802802/repository-http-security-debian-org-debian-security-buster-updates-inrelease
     apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
-		vim wget bzip2 ca-certificates libglib2.0-0 \
-		libxext6 libsm6 libxrender1 libgl1 libglu1-mesa\
-		curl libxerces-c-dev p7zip-full \
-		llvm-6.0 llvm-6.0-tools freeglut3 freeglut3-dev \
-		gcc g++ cmake make zlib1g-dev pkg-config libexpat-dev \ 
-        awscli rsync git software-properties-common gcc-8 \
+		ca-certificates \
+		curl \
 		python3.7 python3.7-dev python3.7-distutils
 
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1

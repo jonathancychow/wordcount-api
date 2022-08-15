@@ -15,7 +15,7 @@ setup(
     description="Count words API",
     url="https://github.com/jonathancychow/wordcount-api",
     install_requires = install_requires,
-    packages=['app'],
+    # packages=['app'],
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "Operating System :: OS Independent",
